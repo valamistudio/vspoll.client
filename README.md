@@ -12,8 +12,6 @@
 - Poll management (author only)
   - End poll prematurely
   - Delete poll
-  - Block users (and remove their votes if it's the case)
-  - Unblock users (must vote again)
   - Delete options
   
 # Hosting specs
