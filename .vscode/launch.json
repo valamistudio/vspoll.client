@@ -6,7 +6,7 @@
         "type": "chrome",
         "request": "attach",
         "port": 9222,
-        "urlFilter": "logerfo.tk*",
+        "urlFilter": "localhost:4200*",
         "webRoot": "${workspaceFolder}",
         "sourceMapPathOverrides": {
           "webpack:/*": "${webRoot}/*",
