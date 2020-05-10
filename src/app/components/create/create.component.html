@@ -1,0 +1,10 @@
+<div class="flex-column container">
+  <form [formGroup]="form">
+    <input class="title" placeholder="Title">
+    <div formArrayName="options" *ngFor="let option of options.controls; index as i">
+      <input (blur)="onOptionBlur(i)" [formControlName]="i" [placeholder]="'Option ' + (i + 1)">
+    </div>
+  </form>
+</div>
+
+<button>PUBLISH</button>

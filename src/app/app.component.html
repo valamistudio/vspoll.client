@@ -1,0 +1,16 @@
+<div class="flex-column flex-items-center">
+  <div class="flex-column container">
+    <div class="flex-row user" *ngIf="user">
+      <img [src]="user.photo_url">
+      <div class="flex-column">
+        <span>{{user.first_name}} {{user.last_name}}</span>
+        <span>@{{user.username}}</span>
+      </div>
+      <button (click)="logout()">Logout</button>
+    </div>
+
+    <app-telegram-login *ngIf="!user"></app-telegram-login>
+
+    <router-outlet></router-outlet>
+  </div>
+</div>
