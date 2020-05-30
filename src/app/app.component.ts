@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { TelegramLoginService } from './services/telegram-login.service';
-import { TelegramLoginData } from './models/telegram-login-data.model';
+import { Authentication } from './models/authentication.model';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +8,7 @@ import { TelegramLoginData } from './models/telegram-login-data.model';
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent implements OnInit {
-  public user: TelegramLoginData = null;
+  public user: Authentication = null;
 
   constructor(
     private telegramLoginService: TelegramLoginService,
@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.telegramLoginService.loginData.subscribe(data => {
+    this.telegramLoginService.authentication.subscribe(data => {
       this.user = data;
       this.changeDetector.detectChanges();
     });

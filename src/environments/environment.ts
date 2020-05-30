@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   telegramWidgetUrl: 'https://telegram.org/js/telegram-widget.js?8',
-  telegramBotName: 'vspoll_bot'
+  telegramBotName: 'vspoll_bot',
+  apiUrl: ''
 };
 
 /*

@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { TelegramLoginData } from '../models/telegram-login-data.model';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { Authentication } from '../models/authentication.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TelegramLoginService {
-  public loginData: Observable<TelegramLoginData>;
+  public authentication: Observable<Authentication>;
 
-  private loginDataSubject: BehaviorSubject<TelegramLoginData>;
+  private authenticationSubject: BehaviorSubject<Authentication>;
 
   private storageKey = 'telegramLoginData';
 
@@ -18,22 +19,35 @@ export class TelegramLoginService {
   }
 
   public logout() {
-    this.loginDataSubject.next(null);
+    this.authenticationSubject.next(null);
     localStorage.removeItem(this.storageKey);
   }
 
   private telegramLogin(loginData: TelegramLoginData) {
-    this.loginDataSubject.next(loginData);
-    this.saveStorage(loginData);
+    const authentication = this.convertToAuthentication(loginData);
+    this.authenticationSubject.next(authentication);
+    this.saveStorage(authentication);
+  }
+
+  private convertToAuthentication(loginData: TelegramLoginData): Authentication {
+    return new Authentication({
+      Id: loginData.id,
+      FirstName: loginData.first_name,
+      LastName: loginData.last_name,
+      Username: loginData.username,
+      PhotoUrl: loginData.photo_url,
+      AuthDate: loginData.auth_date,
+      Hash: loginData.hash
+    });
   }
 
   private loadStorage() {
     const storeData = localStorage.getItem(this.storageKey);
-    this.loginDataSubject = new BehaviorSubject<TelegramLoginData>(JSON.parse(storeData));
-    this.loginData = this.loginDataSubject.asObservable();
+    this.authenticationSubject = new BehaviorSubject<Authentication>(JSON.parse(storeData));
+    this.authentication = this.authenticationSubject.asObservable();
   }
 
-  private saveStorage(data: TelegramLoginData) {
+  private saveStorage(data: Authentication) {
     const storeData = JSON.stringify(data);
     localStorage.setItem(this.storageKey, storeData);
   }
